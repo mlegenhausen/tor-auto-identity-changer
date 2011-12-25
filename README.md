@@ -1,6 +1,8 @@
 tor-auto-identity-changer
 =========================
 
+Little script that periodically request an identity change via the telnet control of your tor client.
+
 # Pre Requirements
 
  * curl
