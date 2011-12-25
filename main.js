@@ -15,17 +15,24 @@ function checkIp(proxy, callback) {
 
 function run(port, proxy, password, timeout) {
 	var client = net.connect(port, function() {
-		util.log('Connected');
+		util.log('Connected to localhost:' + port);
 		client.write('AUTHENTICATE "' + password + '"\r\n');
 	});
 	var timer = null;
+	var authenticated = false;
 	client.on('data', function(data) {
 		var result = data.toString().trim();
 		if (result !== '250 OK') return util.log(result);
-		checkIp(proxy, function(err, ip) {
-			if (err) return util.log(err);
-			util.log("Your identity is " + ip);
-		});
+		if (authenticated) {
+			checkIp(proxy, function(err, ip) {
+				if (err) return util.log(err);
+				util.log("Your new identity is " + ip);
+			});
+		} else {
+			util.log('Successful authenticated');
+			authenticated = true;
+			util.log('Requesting new identity each ' + timeout + 's');
+		}
 		timer = setTimeout(function() {
 			client.write('SIGNAL NEWNYM\r\n');
 		}, timeout * 1000);
