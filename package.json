@@ -2,7 +2,7 @@
     "author":"Malte Legenhausen <mlegenhausen@gmail.com>",
     "name":"tor-auto-identity-changer",
     "description":"Little script that periodically request an identity change via the telnet control of your tor client",
-    "version":"0.0.1",
+    "version":"0.1.0",
     "repository":{
         "url":"git@github.com:mlegenhausen/tor-auto-identity-changer.git"
     },
